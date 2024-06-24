@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button onclick="geoLocation()">Get Location</button>
+
+    <h1></h1>
+    <script>
+      let disp = document.querySelector("h1");
+
+      const geoLocation = () => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition, handleErro);
+        } else {
+          console.log("geo location is not allowed");
+        }
+      };
+
+      const showPosition = (position) => {
+        console.log(position);
+        const lat = position.coords.latitude;
+        const long = position.coords.longitude;
+        console.log(lat, long);
+        disp.innerHTML = `your latitude is ${lat} and longitude is ${long}`;
+      };
+
+      const handleErro = (error) => {
+        switch (error.code) {
+          case error.permition_denide:
+            alert("User denide location acess");
+            break;
+          case error.permition_unavalable:
+            alert("location information is unavalable");
+            break;
+          case error.timeout:
+            alert("time out error");
+
+          case error.unknown_error:
+            alert("unknown Error");
+            break;
+          default:
+            alert("an unknown error occoured");
+        }
+      };
+    </script>
+  </body>
+</html>
